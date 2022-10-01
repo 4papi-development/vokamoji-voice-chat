@@ -12,6 +12,7 @@ class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
   final TextEditingController _login = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  Color color = Colors.grey;
 
   @override
   void dispose() {
@@ -64,22 +65,21 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   SizedBox(
-                    height: 25,
-                  ),
-                  SizedBox(
                     height: 30,
                   ),
-                  // CheckboxListTile(
-                  //   title: Text("Показать пароль"),
-                  //   value: checkedValue,
-                  //   onChanged: (newValue) {
-                  //     setState(() {
-                  //       checkedValue = newValue!;
-                  //     });
-                  //   },
-                  //   controlAffinity: ListTileControlAffinity
-                  //       .leading, //  <-- leading Checkbox
-                  // ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: showPassword,
+                        onChanged: (value) {
+                          setState(() {
+                            showPassword = value!;
+                          });
+                        },
+                      ),
+                      const Text("Показать пароль"),
+                    ],
+                  ),
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -105,6 +105,13 @@ class _LoginViewState extends State<LoginView> {
                           color: Color(0xff3486F4),
                           borderRadius: BorderRadius.circular(12)),
                     ),
+                  ),
+                  Container(
+                    height: 48,
+                    width: 280,
+                    decoration: BoxDecoration(
+                        color: Color(0xff3486F4),
+                        borderRadius: BorderRadius.circular(12)),
                   ),
                 ],
               ),
