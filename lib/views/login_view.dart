@@ -11,6 +11,8 @@ class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
   final TextEditingController _login = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  Color color = Colors.grey;
+
 
   @override
   void dispose() {
@@ -73,15 +75,18 @@ class _LoginViewState extends State<LoginView> {
                     SizedBox(
                       height: 30,
                     ),
-                    CheckboxListTile(
-                      title: Text("Показать пароль"),
-                      value: checkedValue,
-                      onChanged: (newValue) {
-                        setState(() {
-                          checkedValue = newValue!;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: showPassword,
+                          onChanged: (value) {
+                            setState(() {
+                              showPassword = value!;
+                            });
+                          },
+                        ),
+                        const Text("Показать пароль"),
+                      ],
                     ),
                     InkWell(
                       onTap: () {
