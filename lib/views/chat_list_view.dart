@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:vokamoji_voice_chat/constants/routes.dart';
 
-class RegisterView extends StatelessWidget {
-  const RegisterView({Key? key}) : super(key: key);
+class ChatListView extends StatelessWidget {
+  const ChatListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +13,12 @@ class RegisterView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Register'),
+            Text('ChatList'),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, loginRoute);
+                Navigator.pushNamed(context, firstChatRoute);
               },
-              child: Text('Register'),
+              child: Text('ChatList'),
             ),
           ],
         ),
