@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         firstChatRoute: (context) => const FirstChatView(),
       },
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const LoginView(),
     );

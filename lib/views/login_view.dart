@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vokamoji_voice_chat/constants/routes.dart';
 import 'package:vokamoji_voice_chat/views/chat_list_view.dart';
+import 'package:vokamoji_voice_chat/views/register_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registration"),
+        title: const Text("Логин"),
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -36,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
               padding: const EdgeInsets.all(50.0),
               child: Column(
                 children: [
-                  Text("Регистрация"),
+                  Text("Логин", style: TextStyle(fontSize: 26)),
                   SizedBox(
                     height: 25,
                   ),
@@ -81,18 +82,22 @@ class _LoginViewState extends State<LoginView> {
                       const Text("Показать пароль"),
                     ],
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
+                      Navigator.push(
                         context,
-                        chatListRoute,
+                        MaterialPageRoute(
+                            builder: (context) => const ChatListView()),
                       );
                     },
                     child: Container(
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "Djqnb",
+                          "Вход",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -102,17 +107,23 @@ class _LoginViewState extends State<LoginView> {
                       height: 48,
                       width: 280,
                       decoration: BoxDecoration(
-                          color: Color(0xff3486F4),
+                          color: Colors.blueGrey,
                           borderRadius: BorderRadius.circular(12)),
                     ),
                   ),
-                  Container(
-                    height: 48,
-                    width: 280,
-                    decoration: BoxDecoration(
-                        color: Color(0xff3486F4),
-                        borderRadius: BorderRadius.circular(12)),
+                  SizedBox(
+                    height: 25,
                   ),
+                  InkWell(
+                      child: new Text('Еще не зарегестрированы? Тыкни сюда',
+                          style: TextStyle(fontSize: 15)),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterView()),
+                        );
+                      }),
                 ],
               ),
             ),
