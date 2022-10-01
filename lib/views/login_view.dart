@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vokamoji_voice_chat/constants/routes.dart';
 import 'package:vokamoji_voice_chat/views/chat_list_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -82,10 +83,9 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListView()),
+                        chatListRoute,
                       );
                     },
                     child: Container(
