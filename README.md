@@ -1,16 +1,23 @@
-# vokamoji_voice_chat
+# ВОКАМОДЖИ - или как мы помогли людям делиться эмоциями через голосовые
 
-A new Flutter project.
+![image](https://user-images.githubusercontent.com/53406289/193445547-ee1c7eb7-a9d8-4d6f-9488-93d1997c8936.png)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Проблематика
 
-A few resources to get you started if this is your first Flutter project:
+В вечном онлайне не хватает свежих форматов для обмена эмоциями. Смайлики, гифки и мемасы – это, конечно, хорошо, но хочется чего-то нового. Прояви креатив и придумай digital-формат, чтобы делиться вайбом, как вживую, только лучше!
+Тема того самого хакатона – цифровые эмоции.
+Придумай сервис для создания и распространения эмоций в digital-формате.
+Мы не указываем стек технологий, чтобы каждый участник работал в том направлении, в котором силен.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Наше решение - ВОКАМОДЖИ
+
+Мы придумали преобразовывать голосовые сообщения с добавлением анимаций и окрашивания их в уникальные цвета, соответствующие их эмоциями 
+
+
+
+## Команда - ЧУПАПИБАМБОНИ
+- Татьяна Лебедева - Flutter разработчик
+- Сергей Свириденко - Backend разработчик
+- Тампио Илья - ML-разработчик и менеджер
