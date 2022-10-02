@@ -114,10 +114,10 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamedAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListView()),
+                        loginRoute,
+                        (route) => false,
                       );
                     },
                     child: Container(

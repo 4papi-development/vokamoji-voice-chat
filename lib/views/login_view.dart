@@ -88,10 +88,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamedAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChatListView()),
+                        chatListRoute,
+                        (route) => false,
                       );
                     },
                     child: Container(
