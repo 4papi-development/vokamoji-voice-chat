@@ -3,6 +3,7 @@ import 'package:vokamoji_voice_chat/views/chat_list_view.dart';
 import 'package:vokamoji_voice_chat/views/first_chat_view.dart';
 import 'package:vokamoji_voice_chat/views/login_view.dart';
 import 'package:vokamoji_voice_chat/views/register_view.dart';
+import 'package:vokamoji_voice_chat/views/test_voice_view.dart';
 
 import 'constants/routes.dart';
 
@@ -22,9 +23,10 @@ class MyApp extends StatelessWidget {
         registerRoute: (context) => const RegisterView(),
         chatListRoute: (context) => const ChatListView(),
         firstChatRoute: (context) => const FirstChatView(),
+        testVoiceRoute: (context) => const TestVoiceView(),
       },
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.blueGrey,
       ),
       home: const LoginView(),
     );
