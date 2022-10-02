@@ -38,6 +38,7 @@ dependencies:
   permission_handler: ^10.0.2
   sizer: 2.0.15
   voice_message_package: 0.0.74
+  just_audio: ^0.9.29
 
 dev_dependencies:
   flutter_test:
