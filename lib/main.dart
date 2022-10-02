@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         registerRoute: (context) => const RegisterView(),
         chatListRoute: (context) => const ChatListView(),
         firstChatRoute: (context) => const FirstChatView(),
-        testVoiceRoute: (context) => const TestVoiceView(),
+        testVoiceRoute: (context) => RecordingScreen(),
         infoRoute: (context) => const InfoView(),
       },
       theme: ThemeData(

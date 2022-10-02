@@ -1,127 +1,111 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_sound_lite/flutter_sound.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:vokamoji_voice_chat/constants/routes.dart';
+enum AudioState { recording, stop, play }
 
-final pathToSaveAudio = 'audio_example.wav';
+const veryDarkBlue = Color(0xff172133);
+const kindaDarkBlue = Color(0xff202641);
 
-class SoundRecorder {
-  FlutterSoundRecorder? _audioRecorder;
-  bool _isRecorderInitialised = false;
-
-  bool get isRecording => _audioRecorder!.isRecording;
-
-  Future init() async {
-    _audioRecorder = FlutterSoundRecorder();
-
-    final status = await Permission.microphone.request();
-
-    if (status != PermissionStatus.granted) {
-      throw RecordingPermissionException("microphone permission");
-    }
-
-    await _audioRecorder!.openAudioSession();
-    _isRecorderInitialised = true;
-  }
-
-  void dispose() {
-    if (!_isRecorderInitialised) return;
-    _audioRecorder!.closeAudioSession();
-    _audioRecorder = null;
-    _isRecorderInitialised = false;
-  }
-
-  Future _record() async {
-    if (!_isRecorderInitialised) return;
-    await _audioRecorder!
-        .startRecorder(toFile: pathToSaveAudio, codec: Codec.pcm16WAV);
-  }
-
-  Future _stop() async {
-    if (!_isRecorderInitialised) return;
-    await _audioRecorder!.stopRecorder();
-  }
-
-  Future toggleRecording() async {
-    if (_audioRecorder!.isStopped) {
-      await _record();
-    } else {
-      await _stop();
-    }
-  }
+void main() {
+  runApp(RecordingScreen());
 }
 
-class TestVoiceView extends StatefulWidget {
-  const TestVoiceView({Key? key}) : super(key: key);
-
+class RecordingScreen extends StatefulWidget {
   @override
-  State<TestVoiceView> createState() => _TestVoiceViewState();
+  _RecordingScreenState createState() => _RecordingScreenState();
 }
 
-class _TestVoiceViewState extends State<TestVoiceView> {
-  Widget buildStart() {
-    final isRecording = recorder.isRecording;
-    final icon = isRecording ? Icons.stop : Icons.mic;
-    final text = isRecording ? 'Stop' : 'Start';
-    final primary = isRecording ? Colors.red : Colors.white;
-    final onPrimary = isRecording ? Colors.white : Colors.black;
+class _RecordingScreenState extends State<RecordingScreen> {
+  AudioState audioState = AudioState.stop;
 
-    return ElevatedButton.icon(
-      label: Text(text),
-      onPressed: () async {
-        final isRecording = await recorder.toggleRecording();
-        setState(() {});
-      },
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(175, 50),
-        primary: primary,
-        onPrimary: onPrimary,
-      ),
-      icon: Icon(icon),
-    );
-  }
-
-  final recorder = SoundRecorder();
-
-  @override
-  void initState() {
-    super.initState();
-
-    recorder.init();
-  }
-
-  @override
-  void dispose() {
-    recorder.dispose();
-
-    super.dispose();
+  void handleAudioState(AudioState state) {
+    setState(() {
+      if (audioState == null) {
+        // Starts recording
+        audioState = AudioState.recording;
+        // Finished recording
+      } else if (audioState == AudioState.recording) {
+        audioState = AudioState.play;
+        // Play recorded audio
+      } else if (audioState == AudioState.play) {
+        audioState = AudioState.stop;
+        // Stop recorded audio
+      } else if (audioState == AudioState.stop) {
+        audioState = AudioState.play;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            buildStart(),
-            ElevatedButton(
-              onPressed: () {
-                final player = AudioPlayer();
-                player.play(UrlSource(pathToSaveAudio));
-              },
-              child: Text('Click me, sexy'),
-            ),
-          ],
+    return MaterialApp(
+      title: 'Microphone Flutter Web',
+      home: Scaffold(
+        backgroundColor: veryDarkBlue,
+        body: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                padding: EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: handleAudioColour(),
+                ),
+                child: RawMaterialButton(
+                  fillColor: Colors.white,
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(30),
+                  onPressed: () => handleAudioState(audioState),
+                  child: getIcon(audioState),
+                ),
+              ),
+              SizedBox(width: 20),
+              if (audioState == AudioState.play ||
+                  audioState == AudioState.stop)
+                Container(
+                  padding: EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: kindaDarkBlue,
+                  ),
+                  child: RawMaterialButton(
+                    fillColor: Colors.white,
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(30),
+                    onPressed: () => setState(() {
+                      audioState = AudioState.stop;
+                    }),
+                    child: Icon(Icons.replay, size: 50),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Color handleAudioColour() {
+    if (audioState == AudioState.recording) {
+      return Colors.deepOrangeAccent.shade700.withOpacity(0.5);
+    } else if (audioState == AudioState.stop) {
+      return Colors.green.shade900;
+    } else {
+      return kindaDarkBlue;
+    }
+  }
+
+  Icon getIcon(AudioState state) {
+    switch (state) {
+      case AudioState.play:
+        return Icon(Icons.play_arrow, size: 50);
+      case AudioState.stop:
+        return Icon(Icons.stop, size: 50);
+      case AudioState.recording:
+        return Icon(Icons.mic, color: Colors.redAccent, size: 50);
+      default:
+        return Icon(Icons.mic, size: 50);
+    }
   }
 }
