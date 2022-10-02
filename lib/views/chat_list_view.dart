@@ -114,12 +114,6 @@ class _ChatListViewState extends State<ChatListView> {
               subtitle: "Последнее сообщение",
               onTap: () => {},
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, testVoiceRoute);
-              },
-              child: Text('TestVoice'),
-            ),
           ],
         ),
       ),
