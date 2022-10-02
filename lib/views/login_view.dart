@@ -31,6 +31,7 @@ class _LoginViewState extends State<LoginView> {
       ),
       backgroundColor: Colors.white,
       body: Container(
+        alignment: Alignment.center,
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
